@@ -1,0 +1,109 @@
+3️⃣ Draft-first, pressure-free journaling
+Problem
+
+Publishing feels like a “moment” — some users may not be ready.
+
+Improvements
+
+Everything starts as a draft (even mood logs)
+
+Show subtle status chips: Draft • Private • Shared
+
+Add “You can come back to this later” microcopy
+
+Auto-save indicator (“Saved just now”)
+
+You already have the backend structure to support this — it’s mostly UI signaling.
+
+4️⃣ Timeline view → reflection engine
+
+Your Timeline View is a sleeper hit waiting to happen.
+
+Level it up:
+
+Group entries visually by:
+
+substance
+
+emotional intensity
+
+Add a reflection prompt at the end of a week/month:
+
+“Anything you’re noticing about patterns lately?”
+
+Optional (power feature):
+
+“Compare two journeys” (before/after mood deltas)
+
+5️⃣ Sharing & friends: trust signaling is critical
+
+The friend system is good — but users need emotional safety cues.
+
+Improvements
+
+When sharing, explicitly show:
+
+Who can see it
+
+What they can’t do (edit, reshare, etc.)
+
+Add a short line:
+
+“Shared reports are read-only and never indexed or public.”
+
+Add share expiration (7 days / 30 days / forever).
+This is huge for trust.
+
+6️⃣ Visual hierarchy & spacing (shadcn-specific tips)
+
+You’re using good components — now lean into hierarchy.
+
+Concrete UI tweaks
+
+Increase vertical spacing between sections in forms
+
+Use Card components to chunk:
+
+Before
+
+During
+
+After
+
+Reduce border usage, rely more on spacing
+
+Use muted background blocks for reflective text areas
+
+This will make it feel more like a journal, less like a survey.
+
+7️⃣ Emotional aftercare (unique differentiator)
+
+This is where Trip Reporter could stand out.
+
+Add a post-report screen:
+
+“Thanks for taking the time to reflect.”
+
+Optional grounding prompt:
+
+breathe animation
+
+“Drink some water”
+
+“Be gentle with yourself today”
+
+No woo. Just human.
+
+8️⃣ Language & tone consistency
+
+Your design_guidelines.md is a great start — I’d enforce:
+
+Short sentences
+
+No jargon
+
+Warm but neutral tone
+
+Example:
+❌ “Correlation Analysis”
+✅ “How things tend to affect your mood”
