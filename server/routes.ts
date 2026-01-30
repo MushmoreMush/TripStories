@@ -5,6 +5,7 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import { insertTripReportSchema, insertCommentSchema, insertMoodEntrySchema, insertIntegrationNoteSchema, insertChannelMessageSchema, insertFounderPostSchema, REACTION_TYPES, FOUNDER_USERNAME, FOUNDER_EMAILS, type ReactionType } from "@shared/schema";
 import { z } from "zod";
 import { registerObjectStorageRoutes } from "./replit_integrations/object_storage";
+import { registerFeatureRoutes } from "./featureRoutes";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -12,9 +13,12 @@ export async function registerRoutes(
 ): Promise<Server> {
   // Setup authentication
   await setupAuth(app);
-  
+
   // Setup object storage routes for file uploads
   registerObjectStorageRoutes(app);
+
+  // Register new feature routes
+  registerFeatureRoutes(app);
 
   // Auth routes
   app.get("/api/auth/user", isAuthenticated, async (req: any, res) => {

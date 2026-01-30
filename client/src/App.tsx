@@ -25,6 +25,14 @@ import Profile from "@/pages/Profile";
 import EditReport from "@/pages/EditReport";
 import Discover from "@/pages/Discover";
 import Community from "@/pages/Community";
+// New feature pages
+import Messages from "@/pages/Messages";
+import TripSitter from "@/pages/TripSitter";
+import SafetyCheck from "@/pages/SafetyCheck";
+import Mentorship from "@/pages/Mentorship";
+import Settings from "@/pages/Settings";
+import Challenges from "@/pages/Challenges";
+import GroupExperiences from "@/pages/GroupExperiences";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { QuickMoodButton } from "@/components/QuickMoodButton";
 import { UsernameSetupDialog } from "@/components/UsernameSetupDialog";
@@ -66,6 +74,14 @@ function Router() {
         <Route path="/import" component={Import} />
         <Route path="/profile" component={Profile} />
         <Route path="/edit-report/:id" component={EditReport} />
+        {/* New feature routes */}
+        <Route path="/messages" component={Messages} />
+        <Route path="/trip-sitter" component={TripSitter} />
+        <Route path="/safety" component={SafetyCheck} />
+        <Route path="/mentorship" component={Mentorship} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/challenges" component={Challenges} />
+        <Route path="/groups" component={GroupExperiences} />
         <Route component={NotFound} />
       </Switch>
     </AuthenticatedLayout>

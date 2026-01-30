@@ -1,5 +1,5 @@
 import { useLocation, Link } from "wouter";
-import { Home, FileText, Users, PlusCircle, LogOut, BarChart3, Compass, Calendar, BookOpen, Clock, Upload, Settings, User, Zap, Scale, MessageCircle } from "lucide-react";
+import { Home, FileText, Users, PlusCircle, LogOut, BarChart3, Compass, Calendar, BookOpen, Clock, Upload, Settings, User, Zap, Scale, MessageCircle, Shield, Heart, Trophy, UsersRound, Mail, AlertTriangle } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -20,16 +20,32 @@ import { QuickLogModal } from "@/components/QuickLogModal";
 const navItems = [
   { title: "Feed", url: "/", icon: Compass, description: "See your community" },
   { title: "Community", url: "/community", icon: MessageCircle, description: "Chat with others" },
+  { title: "Messages", url: "/messages", icon: Mail, description: "Private chats" },
   { title: "Discover", url: "/discover", icon: Users, description: "Friends' shared experiences" },
   { title: "Integration Journal", url: "/my-reports", icon: FileText, description: "Your journey log" },
   { title: "Timeline", url: "/timeline", icon: Clock, description: "Your journey growth" },
   { title: "Patterns & Learnings", url: "/insights", icon: BarChart3, description: "Personal patterns" },
-  { title: "Compare Journeys", url: "/compare", icon: Scale, description: "Side-by-side comparison" },
+  { title: "Challenges", url: "/challenges", icon: Trophy, description: "Weekly goals" },
   { title: "Calendar", url: "/calendar", icon: Calendar, description: "Journey timeline" },
-  { title: "Resources", url: "/resources", icon: BookOpen, description: "Harm reduction library" },
-  { title: "Import", url: "/import", icon: Upload, description: "Import external data" },
   { title: "Friends", url: "/friends", icon: Users, description: "Your circle" },
+];
+
+const safetyItems = [
+  { title: "Trip Sitter", url: "/trip-sitter", icon: Shield, description: "Safety check-ins" },
+  { title: "Safety Check", url: "/safety", icon: AlertTriangle, description: "Interaction checker" },
+  { title: "Resources", url: "/resources", icon: BookOpen, description: "Harm reduction" },
+];
+
+const socialItems = [
+  { title: "Group Experiences", url: "/groups", icon: UsersRound, description: "Shared journeys" },
+  { title: "Mentorship", url: "/mentorship", icon: Heart, description: "Connect with guides" },
+];
+
+const toolItems = [
+  { title: "Compare Journeys", url: "/compare", icon: Scale, description: "Side-by-side comparison" },
+  { title: "Import", url: "/import", icon: Upload, description: "Import external data" },
   { title: "Profile", url: "/profile", icon: User, description: "Edit your profile" },
+  { title: "Settings", url: "/settings", icon: Settings, description: "App preferences" },
 ];
 
 export function AppSidebar() {
@@ -54,7 +70,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="px-2">
+      <SidebarContent className="px-2 overflow-y-auto">
         <SidebarGroup className="pt-4">
           <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-2 mb-2">
             Navigate
@@ -74,6 +90,78 @@ export function AppSidebar() {
                       <div className="flex flex-col">
                         <span className="text-sm font-medium">{item.title}</span>
                       </div>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="pt-4">
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-2 mb-2">
+            Safety
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {safetyItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location === item.url}
+                    className="rounded-lg"
+                  >
+                    <Link href={item.url} className="flex items-center gap-3 px-3 py-2.5">
+                      <item.icon className="h-4 w-4" />
+                      <span className="text-sm font-medium">{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="pt-4">
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-2 mb-2">
+            Social
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {socialItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location === item.url}
+                    className="rounded-lg"
+                  >
+                    <Link href={item.url} className="flex items-center gap-3 px-3 py-2.5">
+                      <item.icon className="h-4 w-4" />
+                      <span className="text-sm font-medium">{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="pt-4">
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-2 mb-2">
+            Tools
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {toolItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location === item.url}
+                    className="rounded-lg"
+                  >
+                    <Link href={item.url} className="flex items-center gap-3 px-3 py-2.5">
+                      <item.icon className="h-4 w-4" />
+                      <span className="text-sm font-medium">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
