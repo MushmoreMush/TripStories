@@ -33,6 +33,7 @@ import Mentorship from "@/pages/Mentorship";
 import Settings from "@/pages/Settings";
 import Challenges from "@/pages/Challenges";
 import GroupExperiences from "@/pages/GroupExperiences";
+import PreTripChecklist from "@/pages/PreTripChecklist";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { QuickMoodButton } from "@/components/QuickMoodButton";
 import { UsernameSetupDialog } from "@/components/UsernameSetupDialog";
@@ -82,6 +83,7 @@ function Router() {
         <Route path="/settings" component={Settings} />
         <Route path="/challenges" component={Challenges} />
         <Route path="/groups" component={GroupExperiences} />
+        <Route path="/checklist" component={PreTripChecklist} />
         <Route component={NotFound} />
       </Switch>
     </AuthenticatedLayout>

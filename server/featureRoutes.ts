@@ -49,6 +49,48 @@ export function registerFeatureRoutes(app: Express) {
     }
   });
 
+  // Alternative analysis routes (matching AIAnalysis component)
+  app.get("/api/analysis/:reportId", isAuthenticated, async (req: any, res) => {
+    try {
+      const reportId = parseInt(req.params.reportId);
+      const analysis = await storage.getTripAnalysis(reportId);
+      res.json(analysis || null);
+    } catch (error) {
+      console.error("Error fetching analysis:", error);
+      res.status(500).json({ message: "Failed to fetch analysis" });
+    }
+  });
+
+  app.post("/api/analysis/:reportId", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const reportId = parseInt(req.params.reportId);
+
+      // Get report or use provided data
+      let experience = req.body.experience;
+      let setMindset = req.body.setMindset;
+      let setting = req.body.setting;
+
+      if (!experience) {
+        const report = await storage.getTripReportById(reportId, userId);
+        if (!report) {
+          return res.status(404).json({ message: "Report not found" });
+        }
+        experience = report.experience;
+        setMindset = report.setMindset;
+        setting = report.setting;
+      }
+
+      const analysis = analyzeReport(experience, setMindset, setting);
+      const savedAnalysis = await storage.saveTripAnalysis(reportId, analysis);
+
+      res.json(savedAnalysis);
+    } catch (error) {
+      console.error("Error analyzing report:", error);
+      res.status(500).json({ message: "Failed to analyze report" });
+    }
+  });
+
   // =====================
   // SUBSTANCE INTERACTION ROUTES
   // =====================
@@ -219,6 +261,39 @@ export function registerFeatureRoutes(app: Express) {
     } catch (error) {
       console.error("Error completing checklist:", error);
       res.status(500).json({ message: "Failed to complete checklist" });
+    }
+  });
+
+  app.delete("/api/checklists/:id", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      await storage.deleteChecklistItem(parseInt(req.params.id), userId);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting checklist item:", error);
+      res.status(500).json({ message: "Failed to delete item" });
+    }
+  });
+
+  app.get("/api/checklists/progress", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const progress = await storage.getChecklistProgress(userId);
+      res.json(progress);
+    } catch (error) {
+      console.error("Error fetching progress:", error);
+      res.status(500).json({ message: "Failed to fetch progress" });
+    }
+  });
+
+  app.post("/api/checklists/progress", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      await storage.saveChecklistProgress(userId, req.body.completedItems);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving progress:", error);
+      res.status(500).json({ message: "Failed to save progress" });
     }
   });
 

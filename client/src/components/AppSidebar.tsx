@@ -1,5 +1,5 @@
 import { useLocation, Link } from "wouter";
-import { Home, FileText, Users, PlusCircle, LogOut, BarChart3, Compass, Calendar, BookOpen, Clock, Upload, Settings, User, Zap, Scale, MessageCircle, Shield, Heart, Trophy, UsersRound, Mail, AlertTriangle } from "lucide-react";
+import { Home, FileText, Users, PlusCircle, LogOut, BarChart3, Compass, Calendar, BookOpen, Clock, Upload, Settings, User, Zap, Scale, MessageCircle, Shield, Heart, Trophy, UsersRound, Mail, AlertTriangle, ClipboardCheck } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -31,6 +31,7 @@ const navItems = [
 ];
 
 const safetyItems = [
+  { title: "Pre-Trip Checklist", url: "/checklist", icon: ClipboardCheck, description: "Preparation guide" },
   { title: "Trip Sitter", url: "/trip-sitter", icon: Shield, description: "Safety check-ins" },
   { title: "Safety Check", url: "/safety", icon: AlertTriangle, description: "Interaction checker" },
   { title: "Resources", url: "/resources", icon: BookOpen, description: "Harm reduction" },

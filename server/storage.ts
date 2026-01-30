@@ -1448,6 +1448,51 @@ export class DatabaseStorage implements IStorage {
     return completion;
   }
 
+  async deleteChecklistItem(itemId: number, userId: string): Promise<void> {
+    await db
+      .delete(preTripChecklists)
+      .where(and(eq(preTripChecklists.id, itemId), eq(preTripChecklists.userId, userId)));
+  }
+
+  async getChecklistProgress(userId: string): Promise<any[]> {
+    const completions = await db
+      .select()
+      .from(checklistCompletions)
+      .where(eq(checklistCompletions.userId, userId))
+      .orderBy(desc(checklistCompletions.createdAt));
+
+    if (completions.length === 0) return [];
+
+    const latestCompletion = completions[0];
+    const completedItems = latestCompletion.completedItems as number[];
+
+    return completedItems.map(itemId => ({
+      itemId,
+      completed: true,
+      completedAt: latestCompletion.createdAt
+    }));
+  }
+
+  async saveChecklistProgress(userId: string, completedItems: number[]): Promise<void> {
+    // Get or create a general checklist completion record
+    const existing = await db
+      .select()
+      .from(checklistCompletions)
+      .where(and(eq(checklistCompletions.userId, userId)))
+      .limit(1);
+
+    if (existing.length > 0) {
+      await db
+        .update(checklistCompletions)
+        .set({ completedItems, createdAt: new Date() })
+        .where(eq(checklistCompletions.id, existing[0].id));
+    } else {
+      await db
+        .insert(checklistCompletions)
+        .values({ userId, completedItems });
+    }
+  }
+
   // Direct Messages operations
   async getConversations(userId: string): Promise<any[]> {
     const sent = await db
